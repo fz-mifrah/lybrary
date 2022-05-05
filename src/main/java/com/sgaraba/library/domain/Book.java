@@ -1,6 +1,5 @@
 package com.sgaraba.library.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -58,7 +57,6 @@ public class Book implements Serializable {
     @ManyToMany
     @JoinTable(name = "rel_book__author", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "books" }, allowSetters = true)
     private Set<Author> authors = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -182,13 +180,11 @@ public class Book implements Serializable {
 
     public Book addAuthor(Author author) {
         this.authors.add(author);
-        author.getBooks().add(this);
         return this;
     }
 
     public Book removeAuthor(Author author) {
         this.authors.remove(author);
-        author.getBooks().remove(this);
         return this;
     }
 

@@ -92,9 +92,6 @@ describe('Publisher e2e test', () => {
             },
             {
               statusCode: 200,
-              headers: {
-                link: '<http://localhost/api/publishers?page=0&size=20>; rel="last",<http://localhost/api/publishers?page=0&size=20>; rel="first"',
-              },
               body: [publisher],
             }
           ).as('entitiesRequestInternal');
