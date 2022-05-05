@@ -3,11 +3,10 @@ package com.sgaraba.library.service.impl;
 import com.sgaraba.library.domain.Publisher;
 import com.sgaraba.library.repository.PublisherRepository;
 import com.sgaraba.library.service.PublisherService;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,9 +55,9 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Publisher> findAll(Pageable pageable) {
+    public List<Publisher> findAll() {
         log.debug("Request to get all Publishers");
-        return publisherRepository.findAll(pageable);
+        return publisherRepository.findAll();
     }
 
     @Override
