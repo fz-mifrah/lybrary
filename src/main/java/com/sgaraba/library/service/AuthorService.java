@@ -1,9 +1,8 @@
 package com.sgaraba.library.service;
 
 import com.sgaraba.library.domain.Author;
+import java.util.List;
 import java.util.Optional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing {@link Author}.
@@ -36,10 +35,9 @@ public interface AuthorService {
     /**
      * Get all the authors.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<Author> findAll(Pageable pageable);
+    List<Author> findAll();
 
     /**
      * Get the "id" author.

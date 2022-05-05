@@ -27,7 +27,7 @@ entity Author {
   lastName String required maxlength(DEFAULT_MAX_LENGTH)
 }
 
-entity Client {
+/*entity Client {
   firstName String required maxlength(DEFAULT_MAX_LENGTH)
   lastName String  required maxlength(DEFAULT_MAX_LENGTH)
   email String unique maxlength(DEFAULT_MAX_LENGTH)
@@ -60,5 +60,6 @@ relationship ManyToMany {
 filter Book, Client, Author, BorrowedBook, Publisher
 
 paginate Book, Client, Author, BorrowedBook, Publisher with pagination
+*/
 
 service all with serviceImpl

@@ -11,9 +11,6 @@ const authorRoute: Routes = [
   {
     path: '',
     component: AuthorComponent,
-    data: {
-      defaultSort: 'id,asc',
-    },
     canActivate: [UserRouteAccessService],
   },
   {

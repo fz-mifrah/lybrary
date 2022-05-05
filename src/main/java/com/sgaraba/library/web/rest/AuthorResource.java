@@ -2,9 +2,7 @@ package com.sgaraba.library.web.rest;
 
 import com.sgaraba.library.domain.Author;
 import com.sgaraba.library.repository.AuthorRepository;
-import com.sgaraba.library.service.AuthorQueryService;
 import com.sgaraba.library.service.AuthorService;
-import com.sgaraba.library.service.criteria.AuthorCriteria;
 import com.sgaraba.library.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -16,14 +14,9 @@ import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
-import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
@@ -44,12 +37,9 @@ public class AuthorResource {
 
     private final AuthorRepository authorRepository;
 
-    private final AuthorQueryService authorQueryService;
-
-    public AuthorResource(AuthorService authorService, AuthorRepository authorRepository, AuthorQueryService authorQueryService) {
+    public AuthorResource(AuthorService authorService, AuthorRepository authorRepository) {
         this.authorService = authorService;
         this.authorRepository = authorRepository;
-        this.authorQueryService = authorQueryService;
     }
 
     /**
@@ -145,31 +135,12 @@ public class AuthorResource {
     /**
      * {@code GET  /authors} : get all the authors.
      *
-     * @param pageable the pagination information.
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of authors in body.
      */
     @GetMapping("/authors")
-    public ResponseEntity<List<Author>> getAllAuthors(
-        AuthorCriteria criteria,
-        @org.springdoc.api.annotations.ParameterObject Pageable pageable
-    ) {
-        log.debug("REST request to get Authors by criteria: {}", criteria);
-        Page<Author> page = authorQueryService.findByCriteria(criteria, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-
-    /**
-     * {@code GET  /authors/count} : count all the authors.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/authors/count")
-    public ResponseEntity<Long> countAuthors(AuthorCriteria criteria) {
-        log.debug("REST request to count Authors by criteria: {}", criteria);
-        return ResponseEntity.ok().body(authorQueryService.countByCriteria(criteria));
+    public List<Author> getAllAuthors() {
+        log.debug("REST request to get all Authors");
+        return authorService.findAll();
     }
 
     /**

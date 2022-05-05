@@ -19,18 +19,10 @@
     }
   ],
   "fluentMethods": true,
-  "jpaMetamodelFiltering": true,
+  "jpaMetamodelFiltering": false,
   "name": "Author",
-  "pagination": "pagination",
+  "pagination": "no",
   "readOnly": false,
-  "relationships": [
-    {
-      "otherEntityName": "book",
-      "otherEntityRelationshipName": "author",
-      "ownerSide": false,
-      "relationshipName": "book",
-      "relationshipType": "many-to-many"
-    }
-  ],
+  "relationships": [],
   "service": "serviceImpl"
 }

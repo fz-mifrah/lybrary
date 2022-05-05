@@ -92,9 +92,6 @@ describe('Author e2e test', () => {
             },
             {
               statusCode: 200,
-              headers: {
-                link: '<http://localhost/api/authors?page=0&size=20>; rel="last",<http://localhost/api/authors?page=0&size=20>; rel="first"',
-              },
               body: [author],
             }
           ).as('entitiesRequestInternal');

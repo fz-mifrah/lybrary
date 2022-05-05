@@ -3,11 +3,10 @@ package com.sgaraba.library.service.impl;
 import com.sgaraba.library.domain.Author;
 import com.sgaraba.library.repository.AuthorRepository;
 import com.sgaraba.library.service.AuthorService;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,9 +58,9 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Author> findAll(Pageable pageable) {
+    public List<Author> findAll() {
         log.debug("Request to get all Authors");
-        return authorRepository.findAll(pageable);
+        return authorRepository.findAll();
     }
 
     @Override

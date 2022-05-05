@@ -1,9 +1,6 @@
 package com.sgaraba.library.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -34,11 +31,6 @@ public class Author implements Serializable {
     @Size(max = 50)
     @Column(name = "last_name", length = 50, nullable = false)
     private String lastName;
-
-    @ManyToMany(mappedBy = "authors")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "publisher", "authors" }, allowSetters = true)
-    private Set<Book> books = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -79,37 +71,6 @@ public class Author implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Set<Book> getBooks() {
-        return this.books;
-    }
-
-    public void setBooks(Set<Book> books) {
-        if (this.books != null) {
-            this.books.forEach(i -> i.removeAuthor(this));
-        }
-        if (books != null) {
-            books.forEach(i -> i.addAuthor(this));
-        }
-        this.books = books;
-    }
-
-    public Author books(Set<Book> books) {
-        this.setBooks(books);
-        return this;
-    }
-
-    public Author addBook(Book book) {
-        this.books.add(book);
-        book.getAuthors().add(this);
-        return this;
-    }
-
-    public Author removeBook(Book book) {
-        this.books.remove(book);
-        book.getAuthors().remove(this);
-        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
