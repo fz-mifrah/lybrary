@@ -1,9 +1,8 @@
 package com.sgaraba.library.service;
 
 import com.sgaraba.library.domain.Publisher;
+import java.util.List;
 import java.util.Optional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing {@link Publisher}.
@@ -36,10 +35,9 @@ public interface PublisherService {
     /**
      * Get all the publishers.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<Publisher> findAll(Pageable pageable);
+    List<Publisher> findAll();
 
     /**
      * Get the "id" publisher.

@@ -11,9 +11,6 @@ const publisherRoute: Routes = [
   {
     path: '',
     component: PublisherComponent,
-    data: {
-      defaultSort: 'id,asc',
-    },
     canActivate: [UserRouteAccessService],
   },
   {

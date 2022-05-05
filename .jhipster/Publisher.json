@@ -13,9 +13,9 @@
     }
   ],
   "fluentMethods": true,
-  "jpaMetamodelFiltering": true,
+  "jpaMetamodelFiltering": false,
   "name": "Publisher",
-  "pagination": "pagination",
+  "pagination": "no",
   "readOnly": false,
   "relationships": [],
   "service": "serviceImpl"

@@ -2,9 +2,7 @@ package com.sgaraba.library.web.rest;
 
 import com.sgaraba.library.domain.Publisher;
 import com.sgaraba.library.repository.PublisherRepository;
-import com.sgaraba.library.service.PublisherQueryService;
 import com.sgaraba.library.service.PublisherService;
-import com.sgaraba.library.service.criteria.PublisherCriteria;
 import com.sgaraba.library.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -16,14 +14,9 @@ import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
-import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
@@ -44,16 +37,9 @@ public class PublisherResource {
 
     private final PublisherRepository publisherRepository;
 
-    private final PublisherQueryService publisherQueryService;
-
-    public PublisherResource(
-        PublisherService publisherService,
-        PublisherRepository publisherRepository,
-        PublisherQueryService publisherQueryService
-    ) {
+    public PublisherResource(PublisherService publisherService, PublisherRepository publisherRepository) {
         this.publisherService = publisherService;
         this.publisherRepository = publisherRepository;
-        this.publisherQueryService = publisherQueryService;
     }
 
     /**
@@ -149,31 +135,12 @@ public class PublisherResource {
     /**
      * {@code GET  /publishers} : get all the publishers.
      *
-     * @param pageable the pagination information.
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of publishers in body.
      */
     @GetMapping("/publishers")
-    public ResponseEntity<List<Publisher>> getAllPublishers(
-        PublisherCriteria criteria,
-        @org.springdoc.api.annotations.ParameterObject Pageable pageable
-    ) {
-        log.debug("REST request to get Publishers by criteria: {}", criteria);
-        Page<Publisher> page = publisherQueryService.findByCriteria(criteria, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-
-    /**
-     * {@code GET  /publishers/count} : count all the publishers.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/publishers/count")
-    public ResponseEntity<Long> countPublishers(PublisherCriteria criteria) {
-        log.debug("REST request to count Publishers by criteria: {}", criteria);
-        return ResponseEntity.ok().body(publisherQueryService.countByCriteria(criteria));
+    public List<Publisher> getAllPublishers() {
+        log.debug("REST request to get all Publishers");
+        return publisherService.findAll();
     }
 
     /**

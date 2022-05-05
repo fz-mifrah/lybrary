@@ -152,7 +152,7 @@ export class BookUpdateComponent implements OnInit {
 
   protected loadRelationshipsOptions(): void {
     this.publisherService
-      .query({ 'bookId.specified': 'false' })
+      .query({ filter: 'book-is-null' })
       .pipe(map((res: HttpResponse<IPublisher[]>) => res.body ?? []))
       .pipe(
         map((publishers: IPublisher[]) =>
